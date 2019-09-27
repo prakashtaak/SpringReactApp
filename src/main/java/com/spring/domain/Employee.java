@@ -1,13 +1,12 @@
 package com.spring.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Employee {
-
 
     @Id
     @GeneratedValue
@@ -17,13 +16,38 @@ public class Employee {
     private String lastName;
     private String description;
 
+    @JsonIgnore
+    @Version
+    private Long version;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Manager manager;
+
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String description) {
+    public Employee( String firstName, String lastName, String description, Manager manager) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
+        this.manager = manager;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     @Override

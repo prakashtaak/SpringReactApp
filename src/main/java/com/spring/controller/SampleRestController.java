@@ -22,7 +22,7 @@ public class SampleRestController {
     @GetMapping(value = "/employees", produces = "application/json")
     @ResponseBody
     public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+        return (List<Employee>) employeeRepository.findAll();
     }
 
 
